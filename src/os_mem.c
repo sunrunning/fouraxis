@@ -1,24 +1,15 @@
 /*
-*********************************************************************************************************
-*                                                uC/OS-II
-*                                          The Real-Time Kernel
-*                                            MEMORY MANAGEMENT
+******************************************************************************************************
+*                                       Project Fouraxis
+*                   
+*                    (c) Copyright 2014-2018; Micrium, Inc.; Li Jun, Freescale
 *
-*                              (c) Copyright 1992-2009, Micrium, Weston, FL
-*                                           All Rights Reserved
-*
-* File    : OS_MEM.C
-* By      : Jean J. Labrosse
-* Version : V2.91
-*
-* LICENSING TERMS:
-* ---------------
-*   uC/OS-II is provided in source form for FREE evaluation, for educational use or for peaceful research.
-* If you plan on using  uC/OS-II  in a commercial product you need to contact Micriµm to properly license
-* its use in your product. We provide ALL the source code for your convenience and to help you experience
-* uC/OS-II.   The fact that the  source is provided does  NOT  mean that you can use it without  paying a
-* licensing fee.
-*********************************************************************************************************
+*               All rights reserved.  Protected by international copyright laws.
+*               Knowledge of the source code may NOT be used to develop a similar product.
+*               Please help us continue to provide the Embedded community with the finest
+*               software available.  Your honesty is greatly appreciated.
+*                               Email: lijun4running@gmail.com
+******************************************************************************************************
 */
 
 #ifndef  OS_MASTER_FILE

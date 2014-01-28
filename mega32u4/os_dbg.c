@@ -1,15 +1,15 @@
 /*
-*********************************************************************************************************
-*                                                uC/OS-II
-*                                          The Real-Time Kernel
-*                                           DEBUGGER CONSTANTS
+******************************************************************************************************
+*                                       Project Fouraxis
+*                   
+*                    (c) Copyright 2014-2018; Micrium, Inc.; Li Jun, Freescale
 *
-*                                 (c) Copyright 2005, Micrium, Weston, FL
-*                                           All Rights Reserved
-*
-* File : OS_DBG.C
-* By   : Jean J. Labrosse
-*********************************************************************************************************
+*               All rights reserved.  Protected by international copyright laws.
+*               Knowledge of the source code may NOT be used to develop a similar product.
+*               Please help us continue to provide the Embedded community with the finest
+*               software available.  Your honesty is greatly appreciated.
+*                               Email: lijun4running@gmail.com
+******************************************************************************************************
 */
 
 #include <includes.h>

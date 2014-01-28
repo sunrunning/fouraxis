@@ -1,15 +1,16 @@
 /*
-*********************************************************************************************************
-*                                              uC/OS-II
-*                                        The Real-Time Kernel
-* 
-*                                       ATmega128 Specific code
+******************************************************************************************************
+*                                       Project Fouraxis
+*                   
+*                      (c) Copyright 2014-2018; Micrium, Inc.; Li Jun, Freescale
 *
-* File     : OS_CPU_C.C
-* By       : Jean J. Labrosse
-*********************************************************************************************************
+*               All rights reserved.  Protected by international copyright laws.
+*               Knowledge of the source code may NOT be used to develop a similar product.
+*               Please help us continue to provide the Embedded community with the finest
+*               software available.  Your honesty is greatly appreciated.
+*                               Email: lijun4running@gmail.com
+******************************************************************************************************
 */
-
 #define   OS_CPU_GLOBALS
 #include  <ucos_ii.h>
 

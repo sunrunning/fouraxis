@@ -2,7 +2,7 @@
 ******************************************************************************************************
 *                                       Project Fouraxis
 *                   
-*                      (c) Copyright 2014; Micrium, Inc.; Li Jun, Freescale
+*                    (c) Copyright 2014-2018; Micrium, Inc.; Li Jun, Freescale
 *
 *               All rights reserved.  Protected by international copyright laws.
 *               Knowledge of the source code may NOT be used to develop a similar product.

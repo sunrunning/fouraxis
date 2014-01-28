@@ -1,14 +1,16 @@
-;********************************************************************************************************
-;                                               uC/OS-II
-;                                         The Real-Time Kernel
-;
-;                                       ATmega128  Specific code
-;                                           ICC AVR Compiler
-;
-;
-; File     : OS_CPU_I.H
-; By       : Jean J. Labrosse
-;********************************************************************************************************
+;/*
+;******************************************************************************************************
+;*                                       Project Fouraxis
+;*                   
+;*                    (c) Copyright 2014-2018; Micrium, Inc.; Li Jun, Freescale
+;*
+;*               All rights reserved.  Protected by international copyright laws.
+;*               Knowledge of the source code may NOT be used to develop a similar product.
+;*               Please help us continue to provide the Embedded community with the finest
+;*               software available.  Your honesty is greatly appreciated.
+;*                               Email: lijun4running@gmail.com
+;******************************************************************************************************
+;*/
 ;
 ;********************************************************************************************************
 ;                                            BIT DEFINITIONS
