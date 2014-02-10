@@ -41,7 +41,7 @@ RAMPZ   = 0x3B
 ;                                         MACROS
 ;********************************************************************************************************
 
-                .macro  PUSH_ALL                            ; Save all registers
+.macro  PUSH_ALL                            ; Save all registers
                 ST      -Y,R0
                 ST      -Y,R1
                 ST      -Y,R2
@@ -74,9 +74,9 @@ RAMPZ   = 0x3B
                 ST      -Y,R31
                 IN      R16,RAMPZ
                 ST      -Y,R16
-                .endmacro
+.endm
 
-                .macro  POP_ALL                             ; Restore all registers
+.macro  POP_ALL                             ; Restore all registers
                 LD      R16,Y+
                 OUT     RAMPZ,R16
                 LD      R31,Y+
@@ -109,40 +109,40 @@ RAMPZ   = 0x3B
                 LD      R2,Y+
                 LD      R1,Y+
                 LD      R0,Y+
-                .endmacro
+.endm
 
-                .macro  PUSH_SP                             ; Save stack pointer
+.macro  PUSH_SP                             ; Save stack pointer
                 IN      R16,SPH
                 ST      -Y,R16
                 IN      R16,SPL
                 ST      -Y,R16
-                .endmacro
+.endm
 
-                .macro  POP_SP                              ; Restore stack pointer
+.macro  POP_SP                              ; Restore stack pointer
                 LD      R16,Y+
                 OUT     SPL,R16
                 LD      R16,Y+
                 OUT     SPH,R16
-                .endmacro
+.endm
 
-                .macro  PUSH_SREG                           ; Save status register
+.macro  PUSH_SREG                           ; Save status register
                 IN      R16,SREG
                 ST      -Y,R16
-                .endmacro
+.endm
 
-                .macro  POP_SREG                            ; Restore status registers
+.macro  POP_SREG                            ; Restore status registers
                 LD      R16,Y+
                 OUT     SREG,R16
-                .endmacro
+.endm
 
-                .macro  PUSH_SREG_INT                       ; Save status register
+.macro  PUSH_SREG_INT                       ; Save status register
                 IN      R16,SREG
                 SBR     R16,BIT07
                 ST      -Y,R16
-                .endmacro
+.endm
 
-                .macro  POP_SREG_INT                        ; Restore status registers
+.macro  POP_SREG_INT                        ; Restore status registers
                 LD      R16,Y+
                 CBR     R16,BIT07
                 OUT     SREG,R16
-                .endmacro
+.endm

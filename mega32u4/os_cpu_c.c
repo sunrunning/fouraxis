@@ -12,7 +12,7 @@
 ******************************************************************************************************
 */
 #define   OS_CPU_GLOBALS
-#include  <ucos_ii.h>
+#include  "../src/ucos_ii.h"
 
 #if       OS_VIEW_MODULE > 0
 #include  <OS_VIEWc.H>

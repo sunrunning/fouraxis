@@ -12,8 +12,9 @@
 ******************************************************************************************************
 */
 
-                .include  "os_cpu_i.h"
-                .area     text(rel)
+#include  "os_cpu_i.h"
+#include  "../src/ucos_ii.h"
+;.area     text(rel)
 
 ;/*$PAGE*/.
 ;********************************************************************************************************
@@ -31,13 +32,13 @@
 ;                     Return
 ;********************************************************************************************************
 
-_OS_CPU_SR_Save::
+OS_CPU_SR_Save:
                 IN      R16,SREG                    ; Get current state of interrupts disable flag
                 CLI                                 ; Disable interrupts
                 RET                                 ; Return original SREG value in R16
 
 
-_OS_CPU_SR_Restore::
+OS_CPU_SR_Restore:
                 OUT     SREG,R16                    ; Restore SREG
                 RET                                 ; Return
 
@@ -72,14 +73,14 @@ _OS_CPU_SR_Restore::
 ;                      c) Switch to the highest priority task.
 ;********************************************************************************************************
 
-_OSStartHighRdy::
-                CALL    _OSTaskSwHook               ; Invoke user defined context switch hook
-                LDS     R16,_OSRunning              ; Indicate that we are multitasking
+OSStartHighRdy:
+                CALL    OSTaskSwHook               ; Invoke user defined context switch hook
+                LDS     R16,OSRunning              ; Indicate that we are multitasking
                 INC     R16                         ;
-                STS     _OSRunning,R16              ;
+                STS     OSRunning,R16              ;
 
-                LDS     R30,_OSTCBHighRdy           ; Let Z point to TCB of highest priority task
-                LDS     R31,_OSTCBHighRdy+1         ; ready to run
+                LDS     R30,OSTCBHighRdy           ; Let Z point to TCB of highest priority task
+                LDS     R31,OSTCBHighRdy+1         ; ready to run
                 LD      R28,Z+                      ; Load Y (R29:R28) pointer
                 LD      R29,Z+                      ;
 
@@ -119,25 +120,25 @@ _OSStartHighRdy::
 ;                                                PCL                                     (High memory)
 ;********************************************************************************************************
 
-_OSCtxSw::
+OSCtxSw:
                 PUSH_ALL                            ; Save current task's context
                 PUSH_SREG
                 PUSH_SP
 
-                LDS     R30,_OSTCBCur               ; Z = OSTCBCur->OSTCBStkPtr
-                LDS     R31,_OSTCBCur+1             ;
+                LDS     R30,OSTCBCur               ; Z = OSTCBCur->OSTCBStkPtr
+                LDS     R31,OSTCBCur+1             ;
                 ST      Z+,R28                      ; Save Y (R29:R28) pointer
                 ST      Z+,R29                      ;
 
-                CALL    _OSTaskSwHook               ; Call user defined task switch hook
+                CALL    OSTaskSwHook               ; Call user defined task switch hook
 
-                LDS     R16,_OSPrioHighRdy          ; OSPrioCur = OSPrioHighRdy
-                STS     _OSPrioCur,R16
+                LDS     R16,OSPrioHighRdy          ; OSPrioCur = OSPrioHighRdy
+                STS     OSPrioCur,R16
 
-                LDS     R30,_OSTCBHighRdy           ; Let Z point to TCB of highest priority task
-                LDS     R31,_OSTCBHighRdy+1         ; ready to run
-                STS     _OSTCBCur,R30               ; OSTCBCur = OSTCBHighRdy
-                STS     _OSTCBCur+1,R31             ;
+                LDS     R30,OSTCBHighRdy           ; Let Z point to TCB of highest priority task
+                LDS     R31,OSTCBHighRdy+1         ; ready to run
+                STS     OSTCBCur,R30               ; OSTCBCur = OSTCBHighRdy
+                STS     OSTCBCur+1,R31             ;
 
                 LD      R28,Z+                      ; Restore Y pointer
                 LD      R29,Z+                      ;
@@ -145,13 +146,14 @@ _OSCtxSw::
                 POP_SP                              ; Restore stack pointer
                 LD      R16,Y+                      ; Restore status register
                 SBRC    R16,7                       ; Skip next instruction if interrupts DISABLED
-                RJMP    _OSCtxSw_1
+                RJMP    OSCtxSw_1
                 
                 OUT     SREG,R16                    ; Interrupts of task to return to are DISABLED
                 POP_ALL
                 RET
                 
-_OSCtxSw_1:     CBR     R16,BIT07                   ; Interrupts of task to return to are ENABLED
+OSCtxSw_1:     
+		CBR     R16,BIT07                   ; Interrupts of task to return to are ENABLED
                 OUT     SREG,R16
                 POP_ALL                             ; Restore all registers
                 RETI
@@ -198,16 +200,16 @@ _OSCtxSw_1:     CBR     R16,BIT07                   ; Interrupts of task to retu
 ;                                                PCL                                     (High memory)
 ;*********************************************************************************************************
 
-_OSIntCtxSw::
-                CALL    _OSTaskSwHook               ; Call user defined task switch hook
+OSIntCtxSw:
+                CALL    OSTaskSwHook               ; Call user defined task switch hook
 
-                LDS     R16,_OSPrioHighRdy          ; OSPrioCur = OSPrioHighRdy
-                STS     _OSPrioCur,R16              ;
+                LDS     R16,OSPrioHighRdy          ; OSPrioCur = OSPrioHighRdy
+                STS     OSPrioCur,R16              ;
 
-                LDS     R30,_OSTCBHighRdy           ; Z = OSTCBHighRdy->OSTCBStkPtr
-                LDS     R31,_OSTCBHighRdy+1         ;
-                STS     _OSTCBCur,R30               ; OSTCBCur = OSTCBHighRdy
-                STS     _OSTCBCur+1,R31             ;
+                LDS     R30,OSTCBHighRdy           ; Z = OSTCBHighRdy->OSTCBStkPtr
+                LDS     R31,OSTCBHighRdy+1         ;
+                STS     OSTCBCur,R30               ; OSTCBCur = OSTCBHighRdy
+                STS     OSTCBCur+1,R31             ;
 
                 LD      R28,Z+                      ; Restore Y pointer
                 LD      R29,Z+                      ;
@@ -215,13 +217,14 @@ _OSIntCtxSw::
                 POP_SP                              ; Restore stack pointer
                 LD      R16,Y+                      ; Restore status register
                 SBRC    R16,7                       ; Skip next instruction if interrupts DISABLED
-                RJMP    _OSIntCtxSw_1
+                RJMP    OSIntCtxSw_1
                 
                 OUT     SREG,R16                    ; Interrupts of task to return to are DISABLED
                 POP_ALL
                 RET
                 
-_OSIntCtxSw_1:  CBR     R16,BIT07                   ; Interrupts of task to return to are ENABLED
+OSIntCtxSw_1:  
+		CBR     R16,BIT07                   ; Interrupts of task to return to are ENABLED
                 OUT     SREG,R16
                 POP_ALL                             ; Restore all registers
                 RETI
@@ -230,13 +233,13 @@ _OSIntCtxSw_1:  CBR     R16,BIT07                   ; Interrupts of task to retu
 ;/*Add by Li Jun*/
 ;//Email: lijun4running@gmail.com
 ;**********************************************************************************************************
-_OSTickISR::    
+OSTickISR::    
                 PUSH_ALL
                 LDI     R19,0xF1                     ;0xB2
                 OUT     TCNT,R19
 
-                LDS     R16,_OSIntNesting            ; OSIntNesting++
+                LDS     R16,OSIntNesting            ; OSIntNesting++
                 INC     R16
-                STS     _OSIntNesting,R16
+                STS     OSIntNesting,R16
 
                 CPI     
